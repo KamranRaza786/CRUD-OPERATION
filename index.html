@@ -9,97 +9,97 @@
 
 <body>
   <!-- ... (previous code) -->
-  <div id="productList">
-    <!-- Product list will be displayed here -->
+  <div id="studentList">
+    <!-- Student list will be displayed here -->
   </div>
 
   <script src="index.js"></script>
   <script>
-    const productListDiv = document.getElementById('productList');
+    const studentListDiv = document.getElementById('studentList');
 
-    // Function to display products in the list
-    function displayProducts(products) {
-      productListDiv.innerHTML = '';
-      products.forEach(product => {
+    // Function to display students in the list
+    function displayStudents(students) {
+      studentListDiv.innerHTML = '';
+      students.forEach(student => {
         const listItem = document.createElement('li');
         listItem.innerHTML = `
-          <span>${product.name} (ID: ${product._id}) - Price: $${product.price}</span>
-          <button class="edit-btn" onclick="editProduct('${product._id}', '${product.name}', ${product.price})">Edit</button>
-          <button class="delete-btn" onclick="deleteProduct('${product._id}')">Delete</button>
+          <span>${student.name} (ID: ${student._id}) - Age: ${student.age}</span>
+          <button class="edit-btn" onclick="editStudent('${student._id}', '${student.name}', ${student.age})">Edit</button>
+          <button class="delete-btn" onclick="deleteStudent('${student._id}')">Delete</button>
         `;
-        productListDiv.appendChild(listItem);
+        studentListDiv.appendChild(listItem);
       });
     }
 
-    // Fetch products from the server and display them
-    fetch('/products')
+    // Fetch students from the server and display them
+    fetch('/students')
       .then(response => response.json())
-      .then(products => displayProducts(products))
-      .catch(err => console.error('Error fetching products:', err));
+      .then(students => displayStudents(students))
+      .catch(err => console.error('Error fetching students:', err));
 
-    // Function to handle form submission for adding a new product
-    document.getElementById('productForm').addEventListener('submit', (event) => {
+    // Function to handle form submission for adding a new student
+    document.getElementById('studentForm').addEventListener('submit', (event) => {
       event.preventDefault();
       const name = document.getElementById('name').value;
-      const price = document.getElementById('price').value;
-      fetch('/products', {
+      const age = document.getElementById('age').value;
+      fetch('/students', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, price })
+        body: JSON.stringify({ name, age })
       })
       .then(response => response.json())
-      .then(newProduct => {
-        const productList = document.querySelectorAll('#productList li');
-        const lastProduct = productList[productList.length - 1];
-        if (lastProduct) {
-          lastProduct.insertAdjacentHTML('afterend', `
+      .then(newStudent => {
+        const studentList = document.querySelectorAll('#studentList li');
+        const lastStudent = studentList[studentList.length - 1];
+        if (lastStudent) {
+          lastStudent.insertAdjacentHTML('afterend', `
             <li>
-              <span>${newProduct.name} (ID: ${newProduct._id}) - Price: $${newProduct.price}</span>
-              <button class="edit-btn" onclick="editProduct('${newProduct._id}', '${newProduct.name}', ${newProduct.price})">Edit</button>
-              <button class="delete-btn" onclick="deleteProduct('${newProduct._id}')">Delete</button>
+              <span>${newStudent.name} (ID: ${newStudent._id}) - Age: ${newStudent.age}</span>
+              <button class="edit-btn" onclick="editStudent('${newStudent._id}', '${newStudent.name}', ${newStudent.age})">Edit</button>
+              <button class="delete-btn" onclick="deleteStudent('${newStudent._id}')">Delete</button>
             </li>
           `);
         } else {
-          displayProducts([newProduct]);
+          displayStudents([newStudent]);
         }
       })
-      .catch(err => console.error('Error adding product:', err));
-      document.getElementById('productForm').reset();
+      .catch(err => console.error('Error adding student:', err));
+      document.getElementById('studentForm').reset();
     });
 
-    // Function to handle product deletion
-    function deleteProduct(productId) {
-      fetch(`/products/${productId}`, {
+    // Function to handle student deletion
+    function deleteStudent(studentId) {
+      fetch(`/students/${studentId}`, {
         method: 'DELETE'
       })
       .then(response => response.json())
-      .then(deletedProduct => {
-        const listItem = document.querySelector(`#productList li span[data-product-id="${productId}"]`).parentElement;
+      .then(deletedStudent => {
+        const listItem = document.querySelector(`#studentList li span[data-student-id="${studentId}"]`).parentElement;
         listItem.remove();
       })
-      .catch(err => console.error('Error deleting product:', err));
+      .catch(err => console.error('Error deleting student:', err));
     }
 
-    // Function to handle product editing
-    function editProduct(productId, productName, productPrice) {
-      const updatedName = prompt('Enter the updated product name:', productName);
-      const updatedPrice = prompt('Enter the updated product price:', productPrice);
-      if (updatedName && updatedPrice) {
-        fetch(`/products/${productId}`, {
+    // Function to handle student editing
+    function editStudent(studentId, studentName, studentAge) {
+      const updatedName = prompt('Enter the updated student name:', studentName);
+      const updatedAge = prompt('Enter the updated student age:', studentAge);
+      if (updatedName && updatedAge) {
+        fetch(`/students/${studentId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name: updatedName, price: updatedPrice })
+          body: JSON.stringify({ name: updatedName, age: updatedAge })
         })
         .then(response => response.json())
-        .then(updatedProduct => {
-          const listItem = document.querySelector(`#productList li span[data-product-id="${productId}"]`);
-          listItem.textContent = `${updatedProduct.name} (ID: ${updatedProduct._id}) - Price: $${updatedProduct.price}`;
+        .then(updatedStudent => {
+          const listItem = document.querySelector(`#studentList li span[data-student-id="${studentId}"]`);
+          listItem.textContent = `${updatedStudent.name} (ID: ${updatedStudent._id}) - Age: ${updatedStudent.age}`;
         })
-        .catch(err => console.error('Error updating product:', err));
+        .catch(err => console.error('Error updating student:', err));
       }
     }
   </script>
