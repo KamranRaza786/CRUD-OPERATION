@@ -4,7 +4,7 @@
     "express": "^4.18.2",
     "json": "^11.0.0",
     "mongodb": "^5.7.0",
-    "mongoose": "^7.3.4",
+    "mongoose": "^7.4.0",
     "node": "^20.4.0"
   },
   "name": "crud-operation",
