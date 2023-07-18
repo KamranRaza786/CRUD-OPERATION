@@ -1,0 +1,108 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ... (previous code) -->
+</head>
+
+<body>
+  <!-- ... (previous code) -->
+  <div id="productList">
+    <!-- Product list will be displayed here -->
+  </div>
+
+  <script src="index.js"></script>
+  <script>
+    const productListDiv = document.getElementById('productList');
+
+    // Function to display products in the list
+    function displayProducts(products) {
+      productListDiv.innerHTML = '';
+      products.forEach(product => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <span>${product.name} (ID: ${product._id}) - Price: $${product.price}</span>
+          <button class="edit-btn" onclick="editProduct('${product._id}', '${product.name}', ${product.price})">Edit</button>
+          <button class="delete-btn" onclick="deleteProduct('${product._id}')">Delete</button>
+        `;
+        productListDiv.appendChild(listItem);
+      });
+    }
+
+    // Fetch products from the server and display them
+    fetch('/products')
+      .then(response => response.json())
+      .then(products => displayProducts(products))
+      .catch(err => console.error('Error fetching products:', err));
+
+    // Function to handle form submission for adding a new product
+    document.getElementById('productForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const price = document.getElementById('price').value;
+      fetch('/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, price })
+      })
+      .then(response => response.json())
+      .then(newProduct => {
+        const productList = document.querySelectorAll('#productList li');
+        const lastProduct = productList[productList.length - 1];
+        if (lastProduct) {
+          lastProduct.insertAdjacentHTML('afterend', `
+            <li>
+              <span>${newProduct.name} (ID: ${newProduct._id}) - Price: $${newProduct.price}</span>
+              <button class="edit-btn" onclick="editProduct('${newProduct._id}', '${newProduct.name}', ${newProduct.price})">Edit</button>
+              <button class="delete-btn" onclick="deleteProduct('${newProduct._id}')">Delete</button>
+            </li>
+          `);
+        } else {
+          displayProducts([newProduct]);
+        }
+      })
+      .catch(err => console.error('Error adding product:', err));
+      document.getElementById('productForm').reset();
+    });
+
+    // Function to handle product deletion
+    function deleteProduct(productId) {
+      fetch(`/products/${productId}`, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(deletedProduct => {
+        const listItem = document.querySelector(`#productList li span[data-product-id="${productId}"]`).parentElement;
+        listItem.remove();
+      })
+      .catch(err => console.error('Error deleting product:', err));
+    }
+
+    // Function to handle product editing
+    function editProduct(productId, productName, productPrice) {
+      const updatedName = prompt('Enter the updated product name:', productName);
+      const updatedPrice = prompt('Enter the updated product price:', productPrice);
+      if (updatedName && updatedPrice) {
+        fetch(`/products/${productId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: updatedName, price: updatedPrice })
+        })
+        .then(response => response.json())
+        .then(updatedProduct => {
+          const listItem = document.querySelector(`#productList li span[data-product-id="${productId}"]`);
+          listItem.textContent = `${updatedProduct.name} (ID: ${updatedProduct._id}) - Price: $${updatedProduct.price}`;
+        })
+        .catch(err => console.error('Error updating product:', err));
+      }
+    }
+  </script>
+</body>
+
+</html>
