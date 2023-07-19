@@ -1,8 +1,6 @@
 import express from "express";
-import { customAlphabet } from 'nanoid';
 import mongoose from "mongoose";
-
-const nanoid = customAlphabet('1234567890', 20);
+import { customAlphabet } from 'nanoid';
 
 const app = express();
 app.use(express.json());
@@ -27,6 +25,32 @@ const studentSchema = new mongoose.Schema({
 });
 
 const Student = mongoose.model("Student", studentSchema);
+
+// Global operations for Student Information
+const nanoid = customAlphabet('1234567890', 20);
+
+const findStudentById = (studentId) => {
+  return students.find((student) => student.studentID === studentId);
+};
+
+const addStudent = (studentData) => {
+  students.push(studentData);
+};
+
+const updateStudent = (studentId, updatedData) => {
+  const studentIndex = students.findIndex((student) => student.studentID === studentId);
+  if (studentIndex !== -1) {
+    students[studentIndex] = { ...students[studentIndex], ...updatedData };
+  }
+};
+
+const deleteStudent = (studentId) => {
+  students = students.filter((student) => student.studentID !== studentId);
+};
+
+const getAllStudents = () => {
+  return students;
+};
 
 // ... (The rest of the existing code remains unchanged)
 
