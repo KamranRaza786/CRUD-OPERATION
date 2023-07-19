@@ -1,108 +1,88 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <!-- ... (previous code) -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Information</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- ... (previous code) -->
-  <div id="studentList">
-    <!-- Student list will be displayed here -->
+  <div class="container">
+    <h1>Student Information</h1>
+    <hr>
+    <form id="studentForm">
+      <label for="studentID">Student ID (Auto generated from nenoid)</label>
+      <input type="text" id="studentID" readonly>
+
+      <label for="cnicNumber">CNIC Number</label>
+      <input type="text" id="cnicNumber" required>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" required>
+
+      <label for="fatherName">Father's Name</label>
+      <input type="text" id="fatherName" required>
+
+      <div class="inline-inputs">
+        <div class="input-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" required>
+        </div>
+        <div class="input-group">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input type="date" id="dateOfBirth" required>
+        </div>
+      </div>
+
+      <div class="inline-inputs">
+        <div class="input-group">
+          <label>Gender</label>
+          <div class="radio-group">
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female" required>
+            <label for="female">Female</label>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Religion</label>
+          <div class="radio-group">
+            <input type="radio" id="muslim" name="religion" value="Muslim" required>
+            <label for="muslim">Muslim</label>
+            <input type="radio" id="nonMuslim" name="religion" value="Non-Muslim" required>
+            <label for="nonMuslim">Non-Muslim</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline-inputs">
+        <div class="input-group">
+          <label for="nationality">Nationality</label>
+          <input type="text" id="nationality" required>
+        </div>
+        <div class="input-group">
+          <label for="picture">Picture</label>
+          <input type="file" id="picture" accept="image/*" required>
+        </div>
+      </div>
+      <div class="error-message" id="errorMessage"></div>
+      <div class="btn-group">
+        <button type="button" id="addStudentBtn">Add Student</button>
+        <button type="button" id="editStudentBtn">Edit Student</button>
+        <button type="button" id="deleteStudentBtn">Delete Student</button>
+        <button type="button" id="searchStudentBtn">Search Student</button>
+        <button type="button" id="showAllStudentsBtn">Show All Students</button>
+      </div>
+    </form>
+
+    <div id="studentList">
+      <!-- Student list will be displayed here -->
+    </div>
   </div>
 
   <script src="index.js"></script>
-  <script>
-    const studentListDiv = document.getElementById('studentList');
-
-    // Function to display students in the list
-    function displayStudents(students) {
-      studentListDiv.innerHTML = '';
-      students.forEach(student => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-          <span>${student.name} (ID: ${student._id}) - Age: ${student.age}</span>
-          <button class="edit-btn" onclick="editStudent('${student._id}', '${student.name}', ${student.age})">Edit</button>
-          <button class="delete-btn" onclick="deleteStudent('${student._id}')">Delete</button>
-        `;
-        studentListDiv.appendChild(listItem);
-      });
-    }
-
-    // Fetch students from the server and display them
-    fetch('/students')
-      .then(response => response.json())
-      .then(students => displayStudents(students))
-      .catch(err => console.error('Error fetching students:', err));
-
-    // Function to handle form submission for adding a new student
-    document.getElementById('studentForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      fetch('/students', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, age })
-      })
-      .then(response => response.json())
-      .then(newStudent => {
-        const studentList = document.querySelectorAll('#studentList li');
-        const lastStudent = studentList[studentList.length - 1];
-        if (lastStudent) {
-          lastStudent.insertAdjacentHTML('afterend', `
-            <li>
-              <span>${newStudent.name} (ID: ${newStudent._id}) - Age: ${newStudent.age}</span>
-              <button class="edit-btn" onclick="editStudent('${newStudent._id}', '${newStudent.name}', ${newStudent.age})">Edit</button>
-              <button class="delete-btn" onclick="deleteStudent('${newStudent._id}')">Delete</button>
-            </li>
-          `);
-        } else {
-          displayStudents([newStudent]);
-        }
-      })
-      .catch(err => console.error('Error adding student:', err));
-      document.getElementById('studentForm').reset();
-    });
-
-    // Function to handle student deletion
-    function deleteStudent(studentId) {
-      fetch(`/students/${studentId}`, {
-        method: 'DELETE'
-      })
-      .then(response => response.json())
-      .then(deletedStudent => {
-        const listItem = document.querySelector(`#studentList li span[data-student-id="${studentId}"]`).parentElement;
-        listItem.remove();
-      })
-      .catch(err => console.error('Error deleting student:', err));
-    }
-
-    // Function to handle student editing
-    function editStudent(studentId, studentName, studentAge) {
-      const updatedName = prompt('Enter the updated student name:', studentName);
-      const updatedAge = prompt('Enter the updated student age:', studentAge);
-      if (updatedName && updatedAge) {
-        fetch(`/students/${studentId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ name: updatedName, age: updatedAge })
-        })
-        .then(response => response.json())
-        .then(updatedStudent => {
-          const listItem = document.querySelector(`#studentList li span[data-student-id="${studentId}"]`);
-          listItem.textContent = `${updatedStudent.name} (ID: ${updatedStudent._id}) - Age: ${updatedStudent.age}`;
-        })
-        .catch(err => console.error('Error updating student:', err));
-      }
-    }
-  </script>
 </body>
 
 </html>
