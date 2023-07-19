@@ -9,7 +9,7 @@ Crud-Operations documents
 database connections
 <li>https://nodejs.org/en</li>
 <li>https://www.mongodb.com/try/download/enterprise</li>
-<li></li>
+<li>https://github.com/ai/nanoid#readme</li>
 <li></li>
 <li></li>
 <li></li>
