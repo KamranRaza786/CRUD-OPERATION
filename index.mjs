@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/student_database", {
+mongoose.connect("mongodb+srv://aipectowner:<sultan7872>@cluster0.k9gnplp.mongodb.net/", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
