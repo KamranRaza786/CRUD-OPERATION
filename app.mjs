@@ -5,8 +5,9 @@ import { customAlphabet } from 'nanoid';
 const app = express();
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect("mongodb+srv://aipectowner:Kamran@7872#@cluster0.k9gnplp.mongodb.net/students", {
+// MongoDB Connection
+const mongodbUri = "mongodb://localhost:27017/mongodbVSCodePlaygroundDB"; // Replace this with your MongoDB URI
+mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -14,54 +15,42 @@ mongoose.connect("mongodb+srv://aipectowner:Kamran@7872#@cluster0.k9gnplp.mongod
     console.log("Connected to MongoDB");
   })
   .catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
+    console.error("Error connecting to MongoDB:", err.message);
   });
 
 // Define the Student schema and model
 const studentSchema = new mongoose.Schema({
   studentID: { type: String, required: true },
   name: { type: String, required: true },
+  cnicNumber: { type: String, required: true },
+  fatherName: { type: String, required: true },
+  age: { type: Number, required: true },
+  dateOfBirth: { type: Date, required: true },
+  gender: { type: String, enum: ["Male", "Female"], required: true },
+  religion: { type: String, enum: ["Muslim", "Non-Muslim"], required: true },
+  nationality: { type: String, required: true },
+  picture: { type: String, required: true },
   // Add more fields as needed
 });
 
 const Student = mongoose.model("Student", studentSchema);
 
-// Global operations for Student Information
-const nanoid = customAlphabet('1234567890', 20);
-
-const findStudentById = (studentId) => {
-  return students.find((student) => student.studentID === studentId);
-};
-
-const addStudent = (studentData) => {
-  students.push(studentData);
-};
-
-const updateStudent = (studentId, updatedData) => {
-  const studentIndex = students.findIndex((student) => student.studentID === studentId);
-  if (studentIndex !== -1) {
-    students[studentIndex] = { ...students[studentIndex], ...updatedData };
-  }
-};
-
-const deleteStudent = (studentId) => {
-  students = students.filter((student) => student.studentID !== studentId);
-};
-
-const getAllStudents = () => {
-  return students;
-};
-
-// ... (The rest of the existing code remains unchanged)
-
 // Add a new student
 app.post("/student", (req, res) => {
   const studentData = req.body;
-  const studentID = nanoid();
+  const studentID = customAlphabet('1234567890', 20)();
 
   const newStudent = new Student({
     studentID,
     name: studentData.name,
+    cnicNumber: studentData.cnicNumber,
+    fatherName: studentData.fatherName,
+    age: studentData.age,
+    dateOfBirth: studentData.dateOfBirth,
+    gender: studentData.gender,
+    religion: studentData.religion,
+    nationality: studentData.nationality,
+    picture: studentData.picture,
     // Add more fields as needed
   });
 
@@ -117,8 +106,6 @@ app.get("/students", (req, res) => {
       res.status(500).send({ message: "Error fetching students", error: err.message });
     });
 });
-
-// ... (The rest of the existing code remains unchanged)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
