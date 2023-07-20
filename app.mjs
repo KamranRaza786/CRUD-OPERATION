@@ -1,12 +1,17 @@
+// app.mjs
 import express from "express";
 import mongoose from "mongoose";
 import { customAlphabet } from 'nanoid';
+import mongodbUri from "./atlas_uri.mjs";
 
 const app = express();
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send(`"Welcome to AI Chatbot Development Program!"`);
+});
+
 // MongoDB Connection
-const mongodbUri = "mongodb://localhost:27017/mongodbVSCodePlaygroundDB"; // Replace this with your MongoDB URI
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
