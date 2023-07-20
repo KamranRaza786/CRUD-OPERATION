@@ -107,6 +107,22 @@ app.get("/students", (req, res) => {
     });
 });
 
+// Search or findProductByID function
+app.get("/student/:id", (req, res) => {
+  const studentID = req.params.id;
+
+  Student.findOne({ studentID })
+    .then((foundStudent) => {
+      if (!foundStudent) {
+        return res.status(404).send({ message: "Student not found" });
+      }
+      res.send({ message: "Student found", data: foundStudent });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error finding student", error: err.message });
+    });
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
