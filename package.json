@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "axios": "^1.4.0",
-    "express": "latest",
+    "express": "^4.18.2",
     "mongo": "^0.1.0",
     "mongodb": "^4.16.0",
     "mongoose": "^7.4.0",
@@ -11,11 +11,12 @@
   "name": "crud-operation",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "description": "A CRUD operation application using Express and MongoDB"
+  "description": "A CRUD operation application using Express and MongoDB",
+  "keywords": []
 }
