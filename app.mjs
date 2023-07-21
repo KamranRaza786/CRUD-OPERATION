@@ -7,6 +7,12 @@ import mongodbUri from "./atlas_uri.mjs";
 const app = express();
 app.use(express.json());
 
+<<<<<<< HEAD:index.mjs
+// Connect to MongoDB
+//mongoose.connect("mongodb+srv://aipectowner:<Sultan@7872#>@cluster0.k9gnplp.mongodb.net/student_database?retryWrites=true&w=majority", {
+  //useNewUrlParser: true,
+  //useUnifiedTopology: true,
+=======
 app.get("/", (req, res) => {
   res.send(`"Welcome to AI Chatbot Development Program!"`);
 });
@@ -15,6 +21,7 @@ app.get("/", (req, res) => {
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+>>>>>>> f3bac18bc0331f1702f877026a3e320fd05995bb:app.mjs
 })
   .then(() => {
     console.log("Connected to MongoDB");
