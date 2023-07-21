@@ -1,0 +1,65 @@
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.text-22px {
+  font-size: 22px;
+}
+
+.inline-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.radio-group {
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 16px;
+}
+
+.btn-group {
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ccc;
+}
+
+.btn:active {
+  background-color: #bbb;
+}
+
+.add-student-btn {
+  background-color: #337ab7;
+}
+
+.edit-student-btn {
+  background-color: #286090;
+}
+
+.delete-student-btn {
+  background-color: #d9534f;
+}
+
+.search-student-btn {
+  background-color: #87cefa;
+}
+
+.show-all-students-btn {
+  background-color: #00bcd4;
+}

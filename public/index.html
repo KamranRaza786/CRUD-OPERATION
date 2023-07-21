@@ -5,84 +5,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Information</title>
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container">
-    <h1>Student Information</h1>
-    <hr>
-    <form id="studentForm">
-      <label for="studentID">Student ID (Auto generated from nenoid)</label>
-      <input type="text" id="studentID" readonly>
+<body class="container mx-auto p-8">
 
-      <label for="cnicNumber">CNIC Number</label>
-      <input type="text" id="cnicNumber" required>
+  <div class="text-5xl text-center font-extrabold ...">
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
+      AI Chatbot Development </span>
+  </div>
+  <div class="bg-white shadow-md p-8">
+    <div class="text-2xl font-bold text-blue-500 mb-4">Students Information</div>
+    <hr class="my-4">
 
-      <label for="name">Name</label>
-      <input type="text" id="name" required>
+    <form class="flex gap-6 flex-col" id="studentForm">
 
-      <label for="fatherName">Father's Name</label>
-      <input type="text" id="fatherName" required>
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Student ID (nenoid)</label>
+        <input type="text" id="studentID" readonly class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Student ID" />
+      </div>
 
-      <div class="inline-inputs">
-        <div class="input-group">
-          <label for="age">Age</label>
-          <input type="number" id="age" required>
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">CNIC Number</label>
+        <input type="number" id="cnicNumber" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="CNIC Number" />
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+        <input type="text" id="name" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="Student Name" />
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Father's Name</label>
+        <input type="text" id="fatherName" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900
+          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="Father's Name" />
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div class="flex-1 mr-2">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+          <input type="number" id="age" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Age" />
         </div>
-        <div class="input-group">
-          <label for="dateOfBirth">Date of Birth</label>
-          <input type="date" id="dateOfBirth" required>
+        <div class="flex-1 ml-2">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Date of Birth</label>
+          <input type="date" id="dateOfBirth" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Date of Birth" />
+        </div>
+        <div class="flex-1 mr-2">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Nationality</label>
+          <input type="text" id="nationality" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Nationality" />
         </div>
       </div>
 
-      <div class="inline-inputs">
-        <div class="input-group">
-          <label>Gender</label>
-          <div class="radio-group">
-            <input type="radio" id="male" name="gender" value="Male" required>
+      <div class="grid grid-cols-3 gap-3">
+        <div class="flex-1 mr-3">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+          <div class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900 
+          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <input type="radio" id="male" name="gender" value="Male" required class="ml-4 mr-2">
             <label for="male">Male</label>
-            <input type="radio" id="female" name="gender" value="Female" required>
+            <input type="radio" id="female" name="gender" value="Female" required class="ml-4 mr-2">
             <label for="female">Female</label>
           </div>
         </div>
-        <div class="input-group">
-          <label>Religion</label>
-          <div class="radio-group">
-            <input type="radio" id="muslim" name="religion" value="Muslim" required>
+        <div class="flex-1 mr-3">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Religion</label>
+          <div class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900
+           text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <input type="radio" id="muslim" name="religion" value="Muslim" required class="ml-4 mr-2">
             <label for="muslim">Muslim</label>
-            <input type="radio" id="nonMuslim" name="religion" value="Non-Muslim" required>
+            <input type="radio" id="nonMuslim" name="religion" value="Non-Muslim" required class="ml-4 mr-2">
             <label for="nonMuslim">Non-Muslim</label>
           </div>
         </div>
-      </div>
-
-      <div class="inline-inputs">
-        <div class="input-group">
-          <label for="nationality">Nationality</label>
-          <input type="text" id="nationality" required>
-        </div>
-        <div class="input-group">
-          <label for="picture">Picture</label>
-          <input type="file" id="picture" accept="image/*" required>
+        <div class="flex-1 mr-3">
+          <label for="picture" class="block mb-2 text-sm font-medium text-gray-900">Picture</label>
+          <input type="file" id="picture" accept="image/*" required class="bg-gray-50 hover:bg-green-100 border border-gray-300 text-gray-900
+            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
         </div>
       </div>
-      <div class="error-message" id="errorMessage"></div>
-      <div class="btn-group">
-        <button type="button" id="addStudentBtn">Add Student</button>
-        <button type="button" id="editStudentBtn">Edit Student</button>
-        <button type="button" id="deleteStudentBtn">Delete Student</button>
-        <button type="button" id="searchStudentBtn">Search Student</button>
-        <button type="button" id="showAllStudentsBtn">Show All Students</button>
-      </div>
-    </form>
-
-    <div id="studentList">
-      <!-- Student list will be displayed here -->
-    </div>
   </div>
-
-  <script src="app.mjs"></script>
+  <div class="text-red-500 mb-4" id="errorMessage"></div>
+  <div class="flex justify-center">
+    <button type="button" id="addStudentBtn"
+      class="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Add Student</button>
+    <button type="button" id="editStudentBtn"
+      class="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Edit Student</button>
+    <button type="button" id="deleteStudentBtn"
+      class="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Delete Student</button>
+    <button type="button" id="searchStudentBtn"
+      class="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Search Student</button>
+    <button type="button" id="showAllStudentsBtn"
+      class="bg-blue-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Show All Students</button>
+  </div>
+  </form>
+  <div id="studentList">
+    <!-- Student list will be displayed here -->
+  </div>
+  </div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="module" src="./app.mjs"></script>
 </body>
 
 </html>
