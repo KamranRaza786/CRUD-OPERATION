@@ -18,5 +18,10 @@
   "author": "",
   "license": "ISC",
   "description": "A CRUD operation application using Express and MongoDB",
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "install": "^0.13.0",
+    "npm": "^9.8.1",
+    "tailwindcss": "^3.3.3"
+  }
 }
