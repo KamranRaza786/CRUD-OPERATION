@@ -2,7 +2,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { customAlphabet } from 'nanoid';
-import mongodbUri from "./atlas_uri.mjs";
+import mongodbUri from "../atlas_uri.mjs";
 
 const app = express();
 app.use(express.json());
