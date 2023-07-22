@@ -8,6 +8,7 @@ import './src/config/index.mjs'
 const app = express();
 app.use(express.json());
 
+
 app.get("/", (req, res) => {
   res.send(`"Welcome to AI Chatbot Development Program!"`);
 });
@@ -24,20 +25,42 @@ mongoose.connect(mongodbUri, {
     console.error("Error connecting to MongoDB:", err.message);
   });
 
-// Define the Student schema and model
-const studentSchema = new mongoose.Schema({
-  studentID: { type: String, required: true },
-  name: { type: String, required: true },
-  cnicNumber: { type: String, required: true },
-  fatherName: { type: String, required: true },
-  age: { type: Number, required: true },
-  dateOfBirth: { type: Date, required: true },
-  gender: { type: String, enum: ["Male", "Female"], required: true },
-  religion: { type: String, enum: ["Muslim", "Non-Muslim"], required: true },
-  nationality: { type: String, required: true },
-  picture: { type: String, required: true },
-  // Add more fields as needed
-});
+  const form = document.getElementById("yourFormId");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+  
+    const formData = {
+      name: document.getElementById("nameInput").value,
+      cnicNumber: document.getElementById("cnicInput").value,
+      fatherName: document.getElementById("fatherNameInput").value,
+      age: parseInt(document.getElementById("ageInput").value),
+      dateOfBirth: new Date(document.getElementById("dobInput").value),
+      gender: document.querySelector('input[name="gender"]:checked').value,
+      religion: document.querySelector('input[name="religion"]:checked').value,
+      nationality: document.getElementById("nationalityInput").value,
+      picture: document.getElementById("pictureInput").value,
+      // Add more fields as needed
+    };
+    try {
+      const response = await fetch("/student", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+      console.log(data.message); // "Student added successfully"
+      console.log(data.data); // Newly added student data
+      // Handle any additional logic or UI updates after successful form submission
+    } catch (error) {
+      console.error("Error adding student:", error.message);
+      // Handle errors or show error messages to the user
+    }
+  });
+  
 
 const Student = mongoose.model("Student", studentSchema);
 
