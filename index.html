@@ -1,0 +1,23 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Computer Institute App</title>
+</head>
+<body>
+  <h1>Computer Institute Product List</h1>
+  <div>
+    <form id="addProductForm">
+      <input type="text" id="productName" placeholder="Product name" required>
+      <input type="number" id="price" placeholder="Price" required>
+      <textarea id="description" placeholder="Description" required></textarea>
+      <button type="submit">Add Product</button>
+    </form>
+  </div>
+  <div id="data"></div>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
