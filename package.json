@@ -21,8 +21,10 @@
   "description": "A CRUD operation application using Express and MongoDB",
   "keywords": [],
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "install": "^0.13.0",
     "npm": "^9.8.1",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6"
   }
 }

@@ -1,0 +1,11 @@
+import express from "express";
+import path from "path";
+import { productRouter } from "./routes/product.mjs";
+import { PORT } from "./config/index.mjs";
+const __dirname = path.resolve();
+const app = express();
+app.use(express.json());
+app.use("/api/v1", productRouter);
+app.use(express.static(path.join(__dirname, "public")));
+app.get("/testing", (req, res) => res.send("server testing ok"));
+app.listen(PORT, () => console.log(`app listening on ${PORT}`));
