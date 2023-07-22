@@ -17,11 +17,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("hello world!");
 });
-document.getElementById('generateIDBtn').addEventListener('click', () => {
-  const generatedID = nanoid(10); // Replace 10 with the desired length of the ID
-  document.getElementById('generatedID').textContent = generatedID;
-});
-
 
 let products = [
   {
