@@ -1,6 +1,17 @@
-import Notyf from './notyf.min.js';
-import axios from 'axios';
-import express from 'express';
+import Notyf from "notyf";
+import axios from "axios";
+import express from "express";
+const app = express();
+app.use(express.json());
+
+
+import './config/index.mjs'
+
+import { MongoClient } from "mongodb"
+const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.bykenlf.mongodb.net/?retryWrites=true&w=majority`
+const client = new MongoClient(mongodbURI);
+const database = client.db('ecom');
+const productsCollection = database.collection('products');
 
 // Function to display students data
 async function displayStudents() {
