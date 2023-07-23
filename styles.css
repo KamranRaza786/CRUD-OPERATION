@@ -1,0 +1,106 @@
+/* Reset some default styles */
+body, h1, h2, h3, h4, h5, h6, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply blue and green theme styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e6f4ff; /* Light blue background */
+  color: #333; /* Dark text color */
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #005c99; /* Dark blue heading color */
+}
+
+h2 {
+  margin-top: 30px;
+  color: #005c99; /* Dark blue heading color */
+}
+
+/* Product list styles */
+.product {
+  background-color: #d1f0e0; /* Light green product background */
+  padding: 15px;
+  border: 1px solid #99cc99; /* Medium green product border */
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product h3 {
+  margin-bottom: 5px;
+  color: #005c99; /* Dark blue heading color */
+}
+
+.product p {
+  margin-bottom: 10px;
+}
+
+.product button {
+  padding: 5px 10px;
+  background-color: #99cc99; /* Medium green button background */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Product form styles */
+form {
+  background-color: #d1f0e0; /* Light green form background */
+  padding: 15px;
+  border: 1px solid #99cc99; /* Medium green form border */
+  border-radius: 5px;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #005c99; /* Dark blue heading color */
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #99cc99; /* Medium green input border */
+  border-radius: 5px;
+}
+
+form button {
+  padding: 8px 15px;
+  background-color: #00cc66; /* Dark green button background */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Notification styles (using Notyf) */
+.notyf {
+  font-family: Arial, sans-serif;
+  color: #005c99; /* Dark blue heading color */
+}
+
+.notyf-ripple {
+  background-color: #00cc66; /* Dark green notification background */
+  opacity: 0.8;
+}
+
+.notyf-ripple-inner {
+  background-color: #fff; /* White notification inner color */
+  opacity: 0.8;
+}
