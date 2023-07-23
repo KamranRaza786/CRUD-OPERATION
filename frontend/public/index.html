@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <h1>CRUD App</h1>
+    <form id="productForm">
+      <input type="text" id="name" placeholder="Product name" required>
+      <input type="text" id="price" placeholder="Product price" required>
+      <input type="text" id="description" placeholder="Product description" required>
+      <button type="submit">Add Product</button>
+    </form>
+    <ul id="productList"></ul>
+  </div>
+  <script type="module" src="../src/index.mjs"></script>
+</body>
+</html>
