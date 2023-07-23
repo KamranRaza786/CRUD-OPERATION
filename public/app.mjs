@@ -1,177 +1,163 @@
-import Notyf from "notyf";
-import axios from "axios";
-import express from "express";
-const app = express();
-app.use(express.json());
+import Notyf from 'https://cdn.jsdelivr.net/npm/notyf@3.10.2/dist/notyf.esm.min.js';
 
+const notyf = new Notyf();
+const baseUrl = 'https://your-api-url.com'; // Replace with the actual API endpoint
 
-import './config/index.mjs'
+document.addEventListener('DOMContentLoaded', function () {
+  startLoading();
+  getStudents();
+  
+  const addButton = document.querySelector('.big-button');
+  const newStudentContainer = document.querySelector('.new-student-container');
+  const cancelButton = document.querySelector('.btn-secondary');
+  const form = newStudentContainer.querySelector('form');
 
-import { MongoClient } from "mongodb"
-const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.bykenlf.mongodb.net/?retryWrites=true&w=majority`
-const client = new MongoClient(mongodbURI);
-const database = client.db('ecom');
-const productsCollection = database.collection('products');
+  toggleStudentEntryFields(false);
 
-// Function to display students data
-async function displayStudents() {
+  addButton.addEventListener('click', function () {
+    toggleStudentEntryFields(true);
+  });
+
+  cancelButton.addEventListener('click', function () {
+    toggleStudentEntryFields(false);
+  });
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    startLoading();
+
+    const newStudent = {
+      name: document.getElementById('student-name').value,
+      course: document.getElementById('student-course').value,
+      // Add other student properties as needed
+    };
+
+    try {
+      const response = await fetch(`${baseUrl}/students`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newStudent),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create student.');
+      }
+
+      notyf.success('Student created successfully.');
+      getStudents();
+      form.reset();
+      toggleStudentEntryFields(false);
+    } catch (error) {
+      notyf.error('Failed to create student.');
+    }
+
+    stopLoading();
+  });
+});
+
+async function getStudents() {
+  startLoading();
+
   try {
-    const response = await axios.get('/api/students'); 
-     studentsData = response.data;
-      renderStudents();
+    const response = await fetch(`${baseUrl}/students`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch students.');
+    }
+
+    const students = await response.json();
+    displayStudents(students);
   } catch (error) {
-    console.error('Error fetching students data:', error);
+    notyf.error('Failed to fetch students.');
   }
+
+  stopLoading();
 }
 
-// Function to render students data
-function renderStudents() {
-  dataContainer.innerHTML = ''; // Clear the previous data
-  studentsData.forEach((student) => {
-    const studentElement = document.createElement('div');
-    studentElement.innerHTML = `
-      <p>Student Name: ${student.name}</p>
-      <p>Course Fee: ${student.courseFee}</p>
-      <p>Course Title: ${student.courseTitle}</p>
-      <p>Batch Number: ${student.batchNumber}</p>
-      <button class="edit-button" data-id="${student.id}">Edit</button>
-      <button class="delete-button" data-id="${student.id}">Delete</button>
-      <hr>
+function displayStudents(students) {
+  const container = document.querySelector('.container');
+  container.innerHTML = '';
+
+  students.forEach((student) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = `
+      <h3>${student.name}</h3>
+      <p>Course: ${student.course}</p>
+      <button class="btn-danger" data-id="${student.id}">Delete</button>
+      <button class="btn-secondary" data-id="${student.id}">Edit</button>
     `;
-    dataContainer.appendChild(studentElement);
+    container.appendChild(card);
+  });
+
+  // Add event listeners to dynamically added "Edit" and "Delete" buttons
+  container.addEventListener('click', function (e) {
+    const target = e.target;
+    if (target.classList.contains('btn-danger')) {
+      const studentId = target.dataset.id;
+      deleteStudent(studentId);
+    } else if (target.classList.contains('btn-secondary')) {
+      const studentId = target.dataset.id;
+      editStudent(studentId);
+    }
   });
 }
 
-// Function to add a new student
-async function addStudent(event) {
+async function deleteStudent(studentId) {
+  startLoading();
+
   try {
-    event.preventDefault();
-    const studentName = document.getElementById('studentName').value;
-    const courseFee = document.getElementById('courseFee').value;
-    const courseTitle = document.getElementById('courseTitle').value;
-    const batchNumber = document.getElementById('batchNumber').value;
+    const response = await fetch(`${baseUrl}/students/${studentId}`, {
+      method: 'DELETE',
+    });
 
-    const newStudent = {
-      name: studentName,
-      courseFee: courseFee,
-      courseTitle: courseTitle,
-      batchNumber: batchNumber,
-    };
+    if (!response.ok) {
+      throw new Error('Failed to delete student.');
+    }
 
-       const response = await axios.post('/api/students', newStudent);
-    const addedStudent = response.data;
-
-    studentsData.push(addedStudent);
-    renderStudents();
-
-   notyf.success('Student added successfully!');
+    notyf.success('Student deleted successfully.');
+    getStudents();
   } catch (error) {
-    console.error('Error adding student:', error);
-    notyf.error('Failed to add student.');
+    notyf.error('Failed to delete student.');
   }
+
+  stopLoading();
 }
 
 async function editStudent(studentId) {
+  startLoading();
+
   try {
-    const studentToUpdate = studentsData.find((student) => student.id === studentId);
-    if (!studentToUpdate) return;
+    const response = await fetch(`${baseUrl}/students/${studentId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch student details.');
+    }
 
-       const updatedStudentData = {
-      // Implement the fields to update
-      name: prompt('Enter updated student name:', studentToUpdate.name),
-      courseFee: prompt('Enter updated course fee:', studentToUpdate.courseFee),
-      courseTitle: prompt('Enter updated course title:', studentToUpdate.courseTitle),
-      batchNumber: prompt('Enter updated batch number:', studentToUpdate.batchNumber),
-    };
+    const student = await response.json();
 
-    // Make a PUT request to update the student data on the server (Replace `/api/students/${studentId}` with your API endpoint)
-    await axios.put(`/api/students/${studentId}`, updatedStudentData);
+    // Fill the form with the selected student details
+    document.getElementById('student-id').value = student.id;
+    document.getElementById('student-name').value = student.name;
+    document.getElementById('student-course').value = student.course;
+    // Add other student properties to fill the form
 
-    // Update the local data
-    Object.assign(studentToUpdate, updatedStudentData);
-    renderStudents();
-
-    // Show a success notification using Notyf
-    notyf.success('Student updated successfully!');
+    toggleStudentEntryFields(true);
   } catch (error) {
-    console.error('Error updating student:', error);
-    notyf.error('Failed to update student.');
+    notyf.error('Failed to fetch student details.');
   }
+
+  stopLoading();
 }
 
-// Function to delete a student
-async function deleteStudent(studentId) {
-  try {
-    // Make a DELETE request to remove the student from the server (Replace `/api/students/${studentId}` with your API endpoint)
-    await axios.delete(`/api/students/${studentId}`);
-
-    // Remove the student from the local data
-    studentsData = studentsData.filter((student) => student.id !== studentId);
-    renderStudents();
-
-    // Show a success notification using Notyf
-    notyf.success('Student deleted successfully!');
-  } catch (error) {
-    console.error('Error deleting student:', error);
-    notyf.error('Failed to delete student.');
-  }
+function toggleStudentEntryFields(isDisplay) {
+  document.querySelector('.new-student-container').style.display = isDisplay ? 'block' : 'none';
 }
 
-// Function to search for students
-function searchStudents(searchQuery) {
-  const filteredStudents = studentsData.filter((student) => {
-    const lowerCaseName = student.name.toLowerCase();
-    return lowerCaseName.includes(searchQuery);
-  });
-  renderFilteredStudents(filteredStudents);
+function startLoading() {
+  document.getElementById('loader-overlay').style.display = 'flex';
 }
 
-// Function to render filtered students
-function renderFilteredStudents(filteredStudents) {
-  dataContainer.innerHTML = ''; // Clear the previous data
-  filteredStudents.forEach((student) => {
-    const studentElement = document.createElement('div');
-    studentElement.innerHTML = `
-      <p>Student Name: ${student.name}</p>
-      <p>Course Fee: ${student.courseFee}</p>
-      <p>Course Title: ${student.courseTitle}</p>
-      <p>Batch Number: ${student.batchNumber}</p>
-      <hr>
-    `;
-    dataContainer.appendChild(studentElement);
-  });
+function stopLoading() {
+  document.getElementById('loader-overlay').style.display = 'none';
 }
-
-// Initialize Notyf for notifications
-const notyf = new Notyf();
-
-// Sample data (You can replace this with data fetched from the server)
-let studentsData = [];
-
-// Get references to HTML elements
-const addStudentForm = document.getElementById('addStudentForm');
-const dataContainer = document.getElementById('data');
-const searchInput = document.getElementById('searchInput');
-
-// Event listener for form submission to add a new student
-addStudentForm.addEventListener('submit', addStudent);
-
-// Event delegation for handling edit and delete buttons
-dataContainer.addEventListener('click', (event) => {
-  if (event.target.classList.contains('edit-button')) {
-    const studentId = event.target.getAttribute('data-id');
-    editStudent(studentId);
-  } else if (event.target.classList.contains('delete-button')) {
-    const studentId = event.target.getAttribute('data-id');
-    deleteStudent(studentId);
-  }
-});
-
-// Event listener for search input
-searchInput.addEventListener('input', (event) => {
-  const searchQuery = event.target.value.trim().toLowerCase();
-  searchStudents(searchQuery);
-});
-
-// Call the display function initially to show existing data
-displayStudents();

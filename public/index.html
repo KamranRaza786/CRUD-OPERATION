@@ -1,75 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Document</title>
+  <title>Institute Management System</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.2/dist/notyf.min.css" />
 </head>
 
-<body class="container mx-auto px-4 sm:px-8">
-  <h2 class="text-3xl text-center font-bold my-6">AI Chatbot Development</h2>
-
-  <form class="flex gap-6 flex-col" id="addStudentForm">
-    <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
-      <input type="text" id="studentName"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Student Name" />
-    </div>
-
-    <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900">Course Fee</label>
-      <input type="text" id="courseFee"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Course Fee" />
-    </div>
-
-    <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900">Course Title</label>
-      <input type="text"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        id="courseTitle" placeholder="Course Title" />
-    </div>
-
-    <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900">Batch Number</label>
-      <input type="text"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        id="batchNumber" placeholder="Batch Number" />
-    </div>
-
-    <button type="submit" id=""
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-      Add Student
-    </button>
-
-    <button type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-      Search Student
-    </button>
-
-    <button type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-      Edit Student
-    </button>
-
-    <button type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-      Delete Student
-    </button>
-  </form>
-
-  <h2 class="text-3xl text-center font-bold my-6">Students Record</h2>
-  <div class="flex gap-6 flex-col" id="data">
-    <!-- Data will be dynamically added here using JavaScript -->
+<body>
+  <div id="toast">
+    <p id="toast-message"></p>
+  </div>
+  <div id="loader-overlay">
+    <div id="loader"></div>
   </div>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script type="module" src="./app.mjs"></script>
+  <div class="new-student-container">
+    <h1>Register a New Student</h1>
+    <form>
+      <div class="form-group">
+        <input type="hidden" id="student-id">
+        <label for="student-name">Name</label>
+        <input type="text" id="student-name" name="student-name" placeholder="Enter student name" required>
+      </div>
+      <div class="form-group">
+        <label for="student-course">Course</label>
+        <input type="text" id="student-course" name="student-course" placeholder="Enter student course" required>
+      </div>
+      <!-- Add other student properties as needed -->
+      <button type="submit">Save</button>
+      <button type="button" class="btn-secondary">Cancel</button>
+    </form>
+  </div>
+
+  <div class="heading-container">
+    <h1>Search Students</h1>
+  </div>
+
+  <div class="search-container">
+    <div class="form-group">
+      <label for="search-input">Search Students</label>
+      <input type="text" id="search-input" name="search-input" placeholder="Enter student name">
+    </div>
+    <!-- Add more filters as needed -->
+  </div>
+
+  <div class="heading-container">
+    <h1>Students List</h1>
+  </div>
+
+  <div class="container">
+    <!-- Student cards will be dynamically added here -->
+  </div>
+  <button class="big-button">Register New Student</button>
+
+  <script type="module" src="script.mjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3.10.2/dist/notyf.min.js"></script>
 </body>
 
 </html>
