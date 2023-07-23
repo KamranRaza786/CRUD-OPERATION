@@ -1,8 +1,7 @@
 import Notyf from 'https://cdn.jsdelivr.net/npm/notyf@3.10.2/dist/notyf.esm.min.js';
 
 const notyf = new Notyf();
-const baseUrl = 'https://your-api-url.com'; // Replace with the actual API endpoint
-
+const baseUrl = 'https://crud-operation-alpha.vercel.app/';
 document.addEventListener('DOMContentLoaded', function () {
   startLoading();
   getStudents();
