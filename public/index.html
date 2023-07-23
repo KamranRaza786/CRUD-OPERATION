@@ -1,83 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Document</title>
 </head>
+
 <body class="container mx-auto px-4 sm:px-8">
   <h2 class="text-3xl text-center font-bold my-6">AI Chatbot Development</h2>
 
   <form class="flex gap-6 flex-col" id="addStudentForm">
     <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900"
-        >Student Name</label
-      >
-      <input
-        type="text"
-        id="studentName"
+      <label class="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
+      <input type="text" id="studentName"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Student Name"
-      />
+        placeholder="Student Name" />
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900"
-        >Course Fee</label
-      >
-      <input
-        type="text"
-        id="courseFee"
+      <label class="block mb-2 text-sm font-medium text-gray-900">Course Fee</label>
+      <input type="text" id="courseFee"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Course Fee"
-      />
+        placeholder="Course Fee" />
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900"
-        >Course Title</label
-      >
-      <input
-        type="text"
+      <label class="block mb-2 text-sm font-medium text-gray-900">Course Title</label>
+      <input type="text"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        id="courseTitle"
-        placeholder="Course Title"
-      />
+        id="courseTitle" placeholder="Course Title" />
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium text-gray-900"
-        >Batch Number</label
-      >
-      <input
-        type="text"
+      <label class="block mb-2 text-sm font-medium text-gray-900">Batch Number</label>
+      <input type="text"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        id="batchNumber"
-        placeholder="Batch Number"
-      />
+        id="batchNumber" placeholder="Batch Number" />
     </div>
 
-    <button
-      type="submit" id=""
+    <button type="submit" id=""
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
       Add Student
     </button>
 
-    <button
-      type="submit"
+    <button type="submit"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
       Search Student
     </button>
 
-    <button
-      type="submit"
+    <button type="submit"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
       Edit Student
     </button>
 
-    <button
-      type="submit"
+    <button type="submit"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
       Delete Student
     </button>
@@ -88,10 +66,10 @@
     <!-- Data will be dynamically added here using JavaScript -->
   </div>
 
-  <link
-    rel="stylesheet"href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script type="module" src="./app.mjs"></script>
 </body>
+
 </html>
