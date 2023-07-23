@@ -1,4 +1,4 @@
-import Notyf from 'notyf';
+import Notyf from './notyf.min.js';
 import axios from 'axios';
 import express from 'express';
 
