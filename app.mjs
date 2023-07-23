@@ -1,6 +1,3 @@
-// app.mjs
-
-// Import required libraries
 import Notyf from 'notyf';
 import axios from 'axios';
 import express from 'express';
@@ -8,9 +5,9 @@ import express from 'express';
 // Function to display students data
 async function displayStudents() {
   try {
-    const response = await axios.get('/api/students'); // Replace '/api/students' with your API endpoint to fetch student data
-    studentsData = response.data; // Assuming the response contains an array of student records
-    renderStudents();
+    const response = await axios.get('/api/students'); 
+     studentsData = response.data;
+      renderStudents();
   } catch (error) {
     console.error('Error fetching students data:', error);
   }
@@ -50,29 +47,25 @@ async function addStudent(event) {
       batchNumber: batchNumber,
     };
 
-    // Make a POST request to add the new student to the server (Replace '/api/students' with your API endpoint)
-    const response = await axios.post('/api/students', newStudent);
+       const response = await axios.post('/api/students', newStudent);
     const addedStudent = response.data;
 
     studentsData.push(addedStudent);
     renderStudents();
 
-    // Show a success notification using Notyf
-    notyf.success('Student added successfully!');
+   notyf.success('Student added successfully!');
   } catch (error) {
     console.error('Error adding student:', error);
     notyf.error('Failed to add student.');
   }
 }
 
-// Function to edit a student
 async function editStudent(studentId) {
   try {
     const studentToUpdate = studentsData.find((student) => student.id === studentId);
     if (!studentToUpdate) return;
 
-    // Implement the logic to get the updated student data from the user (e.g., using a form or prompt)
-    const updatedStudentData = {
+       const updatedStudentData = {
       // Implement the fields to update
       name: prompt('Enter updated student name:', studentToUpdate.name),
       courseFee: prompt('Enter updated course fee:', studentToUpdate.courseFee),
