@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Tele Shop CRUD</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>Online Tele Shop</h1>
+
+  <form id="teleForm">
+    
+    <label for="uniqid">Product ID:</label>
+    <input type="text" id="uniqid" required>
+
+    <label for="name">product Name:</label>
+    <input type="text" id="name" required>
+    
+    <label for="brand">Brand:</label>
+    <input type="text" id="brand" required>
+
+    <label for="model">Model:</label>
+    <input type="text" id="model" required>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" required>
+
+    <button type="submit">Add product</button>
+  </form>
+
+  <table id="teleTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="product-list">
+      <!-- Telephones will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <script type="module" src="/script.mjs"></script>
+
+</body>
+
+</html>
