@@ -10,7 +10,7 @@
 <body>
  
   <div class="new-student-container">
-    <h1>Register a New Student</h1>
+    <h1>Institute Management System</h1>
     <form>
       <div class="form-group">
         <input type="hidden" id="student-id">
@@ -21,6 +21,12 @@
         <label for="student-course">Course</label>
         <input type="text" id="student-course" name="student-course" placeholder="Enter student course" required>
       </div>
+
+      <div class="form-group">
+        <label for="student-fee">Fee</label>
+        <input type="number" id="student-fee" name="student-fee" placeholder="Enter course Fee" required>
+      </div>
+
       <!-- Add other student properties as needed -->
       <button type="submit">Save</button>
       <button type="button" class="btn-secondary">Cancel</button>
