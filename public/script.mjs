@@ -1,112 +1,49 @@
 // script.mjs
-import { customAlphabet } from 'nanoid'
-const nanoid = customAlphabet('1234567890', 20)
+import { customAlphabet } from "nanoid";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const productForm = document.getElementById("teleForm");
-  const productList = document.getElementById("product-list");
+// Function to generate a unique product ID
+const generateProductId = customAlphabet('1234567890', 10);
 
-  const apiUrl = "/products";
+document.getElementById("teleForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-  async function fetchProducts() {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
+  const name = document.getElementById("name").value;
+  const brand = document.getElementById("brand").value;
+  const model = document.getElementById("model").value;
+  const price = document.getElementById("price").value;
 
-      if (data && data.data && data.data.length) {
-        displayProducts(data.data);
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
+  // Generate the product ID using nanoid
+  const id = generateProductId();
+
+  // Create a new product object
+  const newProduct = {
+    id: id,
+    name: name,
+    brand: brand,
+    model: model,
+    price: price,
+  };
+
+  // Make a POST request to the server to add the new product
+  const response = await fetch("/product", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newProduct),
+  });
+
+  if (response.ok) {
+    // Clear the form inputs after successful submission
+    document.getElementById("name").value = "";
+    document.getElementById("brand").value = "";
+    document.getElementById("model").value = "";
+    document.getElementById("price").value = "";
+
+    // Refresh the product list in the table
+    fetchProducts();
+  } else {
+    // Handle error if product addition fails
+    alert("Failed to add product. Please try again.");
   }
-
-  function displayProducts(products) {
-    productList.innerHTML = "";
-
-    products.forEach((product) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${product.id}</td>
-        <td>${product.name}</td>
-        <td>${product.brand}</td>
-        <td>${product.model}</td>
-        <td>${product.price}</td>
-        <td>
-          <button data-id="${product.id}" class="edit-btn">Edit</button>
-          <button data-id="${product.id}" class="delete-btn">Delete</button>
-        </td>
-      `;
-
-      productList.appendChild(row);
-    });
-  }
-
-  async function addProduct(event) {
-    event.preventDefault();
-
-    const productForm = event.target;
-    const name = productForm.elements["name"].value;
-    const brand = productForm.elements["brand"].value;
-    const model = productForm.elements["model"].value;
-    const price = productForm.elements["price"].value;
-
-    const product = {
-      id: nanoid(),
-      name: name,
-      brand: brand,
-      model: model,
-      price: price,
-    };
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
-
-      if (response.status === 201) {
-        fetchProducts();
-        productForm.reset();
-      } else {
-        console.error("Error adding product");
-      }
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
-  }
-
-  async function deleteProduct(productId) {
-    try {
-      const response = await fetch(`/product/${productId}`, {
-        method: "DELETE",
-      });
-
-      if (response.status === 200) {
-        fetchProducts();
-      } else {
-        console.error("Error deleting product");
-      }
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  }
-
-  async function handleButtonClick(event) {
-    const target = event.target;
-
-    if (target.classList.contains("delete-btn")) {
-      const productId = target.dataset.id;
-      deleteProduct(productId);
-    }
-  }
-
-  productForm.addEventListener("submit", addProduct);
-  productList.addEventListener("click", handleButtonClick);
-
-  // Fetch and display products on page load
-  fetchProducts();
 });
