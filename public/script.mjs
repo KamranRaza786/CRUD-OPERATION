@@ -48,8 +48,6 @@ document.getElementById("teleForm").addEventListener("submit", async (event) => 
   }
 });
 
-// script.mjs
-// ... (previous code)
 
 // Function to fetch all products from the server
 async function fetchProducts() {
