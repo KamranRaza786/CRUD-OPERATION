@@ -1,4 +1,6 @@
 // server.mjs
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import { customAlphabet } from "nanoid";
 import path from "path";
