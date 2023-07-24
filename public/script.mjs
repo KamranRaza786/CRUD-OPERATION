@@ -1,7 +1,5 @@
-// script.mjs
 import { customAlphabet } from "nanoid";
 
-// Function to generate a unique product ID
 const generateProductId = customAlphabet('1234567890', 10);
 
 document.getElementById("teleForm").addEventListener("submit", async (event) => {
@@ -12,10 +10,8 @@ document.getElementById("teleForm").addEventListener("submit", async (event) => 
   const model = document.getElementById("model").value;
   const price = document.getElementById("price").value;
 
-  // Generate the product ID using nanoid
   const id = generateProductId();
 
-  // Create a new product object
   const newProduct = {
     id: id,
     name: name,
@@ -24,7 +20,6 @@ document.getElementById("teleForm").addEventListener("submit", async (event) => 
     price: price,
   };
 
-  // Make a POST request to the server to add the new product
   const response = await fetch("/product", {
     method: "POST",
     headers: {
@@ -34,29 +29,23 @@ document.getElementById("teleForm").addEventListener("submit", async (event) => 
   });
 
   if (response.ok) {
-    // Clear the form inputs after successful submission
     document.getElementById("name").value = "";
     document.getElementById("brand").value = "";
     document.getElementById("model").value = "";
     document.getElementById("price").value = "";
 
-    // Refresh the product list in the table
     fetchProducts();
   } else {
-    // Handle error if product addition fails
     alert("Failed to add product. Please try again.");
   }
 });
 
-
-// Function to fetch all products from the server
 async function fetchProducts() {
   try {
     const response = await fetch("/products");
     const data = await response.json();
 
     if (response.ok) {
-      // Display the products in the table
       const productList = data.data;
       const productTable = document.getElementById("product-list");
       productTable.innerHTML = "";
@@ -76,7 +65,6 @@ async function fetchProducts() {
         `;
       });
     } else {
-      // Handle error if fetching products fails
       console.log("Error fetching products:", data.message);
     }
   } catch (error) {
@@ -84,13 +72,4 @@ async function fetchProducts() {
   }
 }
 
-// Function to refresh the products table after adding, editing, or deleting a product
-function refreshProductTable() {
-  fetchProducts();
-}
-
-// ... (other functions and event listeners)
-
-// Call the fetchProducts function when the page loads to display the products
 fetchProducts();
-
