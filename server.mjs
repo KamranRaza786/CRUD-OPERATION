@@ -34,7 +34,7 @@ app.get("/products", async (req, res) => {
     const productsCollection = db.collection("products");
 
     const products = await productsCollection.find({}).toArray();
-
+    await client.close()
     res.send({
       message: "all products",
       data: products,
@@ -57,10 +57,10 @@ app.post("/product", async (req, res) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
     const productsCollection = db.collection("products");
-    
+
     const result = await productsCollection.insertOne(product);
 
-    res.status(201).json({ message: "created product", data: result.ops[0] });
+    res.status(201).json({ message: "created product", data: result});
   } catch (err) {
     console.error("Error adding product:", err);
     res.status(500).json({ message: "Failed to add product" });
