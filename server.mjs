@@ -4,7 +4,6 @@ import { customAlphabet } from "nanoid";
 import path from "path";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -14,11 +13,10 @@ const __dirname = path.dirname(__filename);
 const nanoid = customAlphabet("1234567890", 20);
 
 // MongoDB URI and database name
-const mongodbURI = "mongodb://localhost:27017/ecom"; // Update with your MongoDB connection URI
-const dbName = "ecom";
 
-// Create a MongoDB client
-const client = new MongoClient(mongodbURI, { useUnifiedTopology: true });
+const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.CLUSTER_NAME}/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
+
+const client = new MongoClient(mongodbURI);
 
 // Connect to the MongoDB server
 client.connect()
@@ -46,7 +44,7 @@ let products = [
 // Handle GET request to fetch all products
 app.get("/products", async (req, res) => {
   try {
-    const db = client.db(dbName);
+    const db = client.db(process.env.DATABASE_NAME);
     const productsCollection = db.collection("products");
 
     // Fetch all products from the "products" collection
@@ -73,7 +71,7 @@ app.post("/product", async (req, res) => {
   };
 
   try {
-    const db = client.db(dbName);
+    const db = client.db(process.env.DATABASE_NAME);
     const productsCollection = db.collection("products");
     
     // Insert the new product into the "products" collection
