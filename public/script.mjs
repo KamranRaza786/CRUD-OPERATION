@@ -5,10 +5,10 @@ const generateProductId = customAlphabet('1234567890', 10);
 document.getElementById("teleForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const name = document.getElementById("name").value;
-  const brand = document.getElementById("brand").value;
-  const model = document.getElementById("model").value;
-  const price = document.getElementById("price").value;
+  const name = document.getElementById("product.name").value;
+  const brand = document.getElementById("product.brand").value;
+  const model = document.getElementById("product.model").value;
+  const price = document.getElementById("product.price").value;
 
   const id = generateProductId();
 
@@ -29,10 +29,10 @@ document.getElementById("teleForm").addEventListener("submit", async (event) => 
   });
 
   if (response.ok) {
-    document.getElementById("name").value = "";
-    document.getElementById("brand").value = "";
-    document.getElementById("model").value = "";
-    document.getElementById("price").value = "";
+    document.getElementById("product.name").value = "";
+    document.getElementById("product.brand").value = "";
+    document.getElementById("product.model").value = "";
+    document.getElementById("product.price").value = "";
 
     fetchProducts();
   } else {
