@@ -1,36 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Tele Shop</title>
+  <title>Product Management</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <h1>Online Tele Shop</h1>
-
-  <form id="teleForm">
-    <label for="nanoid()">Product ID:</label>
-    <input type="text" id="nanoid()" hidden>
-
-    <label for="product.name">Product Name:</label>
+  <h1>Product Management</h1>
+  
+  <form id="productForm">
+    <label for="product.name">Name:</label>
     <input type="text" id="product.name" required>
-    
+    <br>
     <label for="product.brand">Brand:</label>
     <input type="text" id="product.brand" required>
-
+    <br>
     <label for="product.model">Model:</label>
     <input type="text" id="product.model" required>
-
+    <br>
     <label for="product.price">Price:</label>
     <input type="number" id="product.price" required>
-
-    <button type="submit">Add product</button>
+    <br>
+    <button type="submit">Add Product</button>
   </form>
 
-  <table id="teleTable">
+  <table id="productList">
     <thead>
       <tr>
         <th>ID</th>
@@ -38,16 +31,12 @@
         <th>Brand</th>
         <th>Model</th>
         <th>Price</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="product-list">
-      <!-- Telephones will be dynamically added here -->
-    </tbody>
+    <tbody></tbody>
   </table>
 
-  <script type="module" src="/script.mjs"></script>
-
+  <script src="script.mjs" type="module"></script>
 </body>
-
 </html>
