@@ -38,19 +38,38 @@ document.getElementById("productForm").addEventListener("submit", async (event) 
   }
 });
 
-// Define other functions here, like fetchProducts, deleteProduct, and editProduct
+// Call fetchProducts when the page loads to populate the table with existing products
+document.addEventListener("DOMContentLoaded", fetchProducts);
 
 async function fetchProducts() {
-  // Function implementation
+  console.log("Fetching products...");
+  try {
+    const response = await fetch("/products");
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const data = await response.json();
+    console.log("Fetched products:", data);
+    // Update the table with the fetched products here
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
 }
 
 async function deleteProduct(productId) {
-  // Function implementation
+  console.log("Deleting product with ID:", productId);
+  try {
+    // Function implementation
+  } catch (error) {
+    console.error("Error deleting product:", error);
+  }
 }
 
 async function editProduct(productId) {
-  // Function implementation
+  console.log("Editing product with ID:", productId);
+  try {
+    // Function implementation
+  } catch (error) {
+    console.error("Error editing product:", error);
+  }
 }
-
-// Call fetchProducts when the page loads to populate the table with existing products
-document.addEventListener("DOMContentLoaded", fetchProducts);
