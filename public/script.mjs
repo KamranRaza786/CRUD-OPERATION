@@ -13,7 +13,6 @@ document.getElementById("teleForm").addEventListener("submit", async (event) => 
   const id = generateProductId();
 
   const newProduct = {
-    id: id,
     name: name,
     brand: brand,
     model: model,
