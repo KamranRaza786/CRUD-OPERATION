@@ -1,6 +1,6 @@
 import { customAlphabet } from "nanoid";
 
-const generateProductId = customAlphabet("1234567890", 10);
+const generateProductId = customAlphabet("abcd1230", 10);
 
 document.getElementById("productForm").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -18,7 +18,7 @@ document.getElementById("productForm").addEventListener("submit", async (event) 
   };
 
   try {
-    const response = await fetch("/product", {
+    const response = await fetch("/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

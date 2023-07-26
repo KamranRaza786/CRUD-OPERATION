@@ -5,7 +5,7 @@ import { customAlphabet } from "nanoid";
 import path from "path";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
-import cors from "cors"; // Import the cors middleware
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,7 +27,6 @@ async function startServer() {
     app.use(express.static(path.join(__dirname, "public")));
     app.use(express.json());
 
-    // Use the CORS middleware
     app.use(cors());
 
     app.get("/products", async (req, res) => {
@@ -44,6 +43,25 @@ async function startServer() {
       } catch (err) {
         console.error("Error fetching products:", err);
         res.status(500).json({ message: "Failed to fetch products" });
+      }
+    });
+
+    app.post("/products", async (req, res) => {
+      try {
+        const db = client.db(process.env.DATABASE_NAME);
+        const productsCollection = db.collection("products");
+
+        const newProduct = req.body;
+
+        const insertedProduct = await productsCollection.insertOne(newProduct);
+
+        res.send({
+          message: "product added",
+          data: insertedProduct,
+        });
+      } catch (err) {
+        console.error("Error adding product:", err);
+        res.status(500).json({ message: "Failed to add product" });
       }
     });
 
