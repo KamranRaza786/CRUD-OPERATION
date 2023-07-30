@@ -14,7 +14,7 @@ document.getElementById("productForm").addEventListener("submit", async (event) 
     name: name,
     brand: brand,
     model: model,
-    price: parseFloat(price), // Parse price as a float
+    price: parseFloat(price), 
   };
 
   try {
