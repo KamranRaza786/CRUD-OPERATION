@@ -1,0 +1,15 @@
+Crud-Operation
+|-- controller
+|   |-- db.mjs
+|   |-- productController.mjs
+|-- node_modules
+|-- public
+|   |-- index.html
+|   |-- script.mjs
+|   |-- styles.css
+|-- routes
+|   |-- productRoute.mjs
+|-- server.mjs
+|-- db.mjs
+|-- package.json
+|-- package-lock.json

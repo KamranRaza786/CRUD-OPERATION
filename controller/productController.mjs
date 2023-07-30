@@ -1,12 +1,17 @@
-import { customAlphabet } from "nanoid";
 import { ObjectId } from "mongodb";
-import db from "../server.mjs";
+import { customAlphabet } from "nanoid";
+
+import { connectToDB } from "../db.mjs";
+
 
 const nanoid = customAlphabet("1234567890", 20);
+const dbPromise = connectToDB();
 
 const productController = {
-  getAllProducts: async (req, res) => {
+
+getAllProducts: async (req, res) => {
     try {
+      const db = await connectToDB();
       const productsCollection = db.collection("products");
       const products = await productsCollection.find({}).toArray();
       res.send({
@@ -22,8 +27,9 @@ const productController = {
   getProductById: async (req, res) => {
     const { id } = req.params;
     try {
-      const query = { _id: new ObjectId(id) };
+      const db = await connectToDB();
       const productsCollection = db.collection("products");
+      const query = { _id: new ObjectId(id) };
       const data = await productsCollection.findOne(query);
       if (!data) {
         throw new Error("Product Not Found!");
@@ -36,15 +42,17 @@ const productController = {
   },
 
   createProduct: async (req, res) => {
+    const { name, brand, model, price } = req.body;
     const product = {
-      id: nanoid(),
-      name: req.body.name,
-      brand: req.body.brand,
-      model: req.body.model,
-      price: req.body.price,
+      _id: nanoid(),
+      name: name,
+      brand: brand,
+      model: model,
+      price: price,
     };
 
     try {
+      const db = await connectToDB();
       const productsCollection = db.collection("products");
       const result = await productsCollection.insertOne(product);
 
@@ -59,6 +67,7 @@ const productController = {
     const { id } = req.params;
     const { name, brand, model, price } = req.body;
     try {
+      const db = await connectToDB();
       const productsCollection = db.collection("products");
       const query = { _id: new ObjectId(id) };
       const update = {
@@ -86,6 +95,7 @@ const productController = {
   deleteProduct: async (req, res) => {
     const { id } = req.params;
     try {
+      const db = await connectToDB();
       const productsCollection = db.collection("products");
       const query = { _id: new ObjectId(id) };
       const deletedProduct = await productsCollection.findOneAndDelete(query);
