@@ -1,20 +1,18 @@
-import { customAlphabet } from "nanoid";
-
-const generateProductId = customAlphabet("abcd1230", 10);
+document.addEventListener("DOMContentLoaded", fetchProducts);
 
 document.getElementById("productForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const name = document.getElementById("product.name").value;
-  const brand = document.getElementById("product.brand").value;
-  const model = document.getElementById("product.model").value;
-  const price = document.getElementById("product.price").value;
+  const name = document.getElementById("name").value;
+  const brand = document.getElementById("brand").value;
+  const model = document.getElementById("model").value;
+  const price = document.getElementById("price").value;
 
   const newProduct = {
     name: name,
     brand: brand,
     model: model,
-    price: parseFloat(price), 
+    price: parseFloat(price),
   };
 
   try {
@@ -38,37 +36,59 @@ document.getElementById("productForm").addEventListener("submit", async (event) 
   }
 });
 
-// Call fetchProducts when the page loads to populate the table with existing products
-document.addEventListener("DOMContentLoaded", fetchProducts);
-
 async function fetchProducts() {
-  console.log("Fetching products...");
   try {
     const response = await fetch("/products");
     if (!response.ok) {
       throw new Error("Failed to fetch products");
     }
     const data = await response.json();
-    console.log("Fetched products:", data);
-    // Update the table with the fetched products here
+
+    const productList = document.getElementById("productList");
+    productList.innerHTML = "";
+
+    for (const product of data.data) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${product._id}</td>
+        <td>${product.name}</td>
+        <td>${product.brand}</td>
+        <td>${product.model}</td>
+        <td>${product.price}</td>
+        <td>
+          <button onclick="editProduct('${product._id}')">Edit</button>
+          <button onclick="deleteProduct('${product._id}')">Delete</button>
+        </td>
+      `;
+      productList.appendChild(row);
+    }
   } catch (error) {
     console.error("Error fetching products:", error);
   }
 }
 
 async function deleteProduct(productId) {
-  console.log("Deleting product with ID:", productId);
   try {
-    // Function implementation
+    const response = await fetch(`/products/${productId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      fetchProducts();
+    } else {
+      alert("Failed to delete product. Please try again.");
+    }
   } catch (error) {
     console.error("Error deleting product:", error);
+    alert("Failed to delete product. Please try again.");
   }
 }
 
 async function editProduct(productId) {
-  console.log("Editing product with ID:", productId);
   try {
-    // Function implementation
+    // You can implement the logic to edit the product here
+    // For example, you can show a modal with a form to edit the product details
+    // and then make a PUT request to update the product
   } catch (error) {
     console.error("Error editing product:", error);
   }
