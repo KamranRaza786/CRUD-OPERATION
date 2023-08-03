@@ -33,7 +33,6 @@
   <div id="products">
   </div>
 
-
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script type="module">
@@ -50,11 +49,18 @@
         resp.data.data.map(eachProduct => {
           productsDiv.innerHTML += `<div>
                       <h2>Name: ${eachProduct.name}</h2>
+                      <p>ID: ${eachProduct._id}</p>
                       <p>Brand: ${eachProduct.brand}</p>
                       <p>Model: ${eachProduct.model}</p>
                       <p>Price: ${eachProduct.price}</p>
-                      <button>Edit</button>
-                      <button>Delete</button>
+                      <button class="icon-button edit-button">
+                        <i class="fas fa-edit button-icon"></i>
+                        Edit Product
+                      </button>
+                      <button class="icon-button delete-button">
+                        <i class="fas fa-trash-alt button-icon"></i>
+                        Delete Product
+                      </button>
                       </div>`
         })
 

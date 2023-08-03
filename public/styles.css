@@ -57,6 +57,7 @@ button {
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
 }
 
 button.add-button {
@@ -64,7 +65,7 @@ button.add-button {
 }
 
 button.edit-button {
-  background-color: #ffc107;
+  background-color: #5085f8;
 }
 
 button.delete-button {
@@ -72,7 +73,8 @@ button.delete-button {
 }
 
 button:hover {
-  opacity: 0.8;
+  background-color: #ff6404; 
+  opacity: 0.9; 
 }
 
 #products {
