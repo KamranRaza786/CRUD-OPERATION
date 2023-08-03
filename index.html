@@ -2,51 +2,87 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Crud Operations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>
-    <h1>Product CRUD</h1>
+<body class="container">
+  <h1>Crud Operations</h1>
+  <form id="productForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required="">
+    <br>
+    <label for="brand">Brand:</label>
+    <input type="text" id="brand" required="">
+    <br>
+    <label for="model">Model:</label>
+    <input type="text" id="model" required="">
+    <br>
+    <label for="price">Price:</label>
+    <input type="number" id="price" required="">
+    <br>
+    <label for="description">description:</label>
+    <input type="text" id="description" required="">
+    <br>
+    <button class="icon-button add-button"type="submit">
+      <i class="fas fa-plus"></i>
+      Add Product
+    </button>
+  </form>
+  <div id="products">
 
-    <div id="products">
-
-    </div>
+  </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script type="module">
+  <script type="module">
 
-        const getAllProducts = async () => {
-            try {
+    const getAllProducts = async () => {
+      try {
 
-                const resp = await axios.get("http://localhost:3000/products");
-                console.log("resp: ", resp.data.data);
+        const resp = await axios.get("http://localhost:3000/products");
+        console.log("resp: ", resp.data.data);
 
-                let productsDiv = document.querySelector("#products")
-                productsDiv.innerHTML = "";
+        let productsDiv = document.querySelector("#products")
+        productsDiv.innerHTML = "";
 
-                resp.data.data.map(eachProduct => {
-                    productsDiv.innerHTML += `<div>
+        resp.data.data.map(eachProduct => {
+          productsDiv.innerHTML += `<div class="card">
+                        
                         <h2>Name: ${eachProduct.name}</h2>
-                        <p>Price: ${eachProduct.price}</p>
+                        <p>brand: ${eachProduct.brand}</p>
+                        <p>model: ${eachProduct.model}</p>
+                        <p>Price: ${eachProduct.price} $ Only</p>
+                        <p>id: ${eachProduct._id}</p>
                         <p>Description: ${eachProduct.description}</p>
-                        <button>Delete</button>
+                        
+                        <button class="icon-button edit-button"type="button">
+                        <i class="fas fa-pencil-alt"></i>
+                        Edit Product
+                        </button>
+
+                        <button class="icon-button delete-button"type="button">
+                        <i class="fas fa-trash"></i>
+                        Delete Product
+                        </button>
+                        </div>
                         </div>`
-                })
+        })
 
 
-            } catch (e) {
-                console.error("Error getting products");
-            }
-        };
+      } catch (e) {
+        console.error("Error getting products");
+      }
+    };
 
-        window.addEventListener("load", getAllProducts);
+    window.addEventListener("load", getAllProducts);
 
-    </script>
-<script src="server.mjs"></script>
+  </script>
+  <script src="server.mjs"></script>
 </body>
 
 </html>

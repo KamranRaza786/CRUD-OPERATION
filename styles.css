@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -61,19 +61,55 @@ button {
 }
 
 button.add-button {
-  background-color: #4caf50;
+  background-color: #0b480d;
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+  box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
 }
 
 button.edit-button {
   background-color: #5085f8;
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+  box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
 }
 
 button.delete-button {
-  background-color: #dc3545;
+  background-color: #fe0720;
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+  box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
 }
 
 button:hover {
-  background-color: #ff6404; 
+  background-color: #070707; 
   opacity: 0.9; 
 }
 
@@ -95,5 +131,12 @@ button:hover {
 }
 
 .product-card p {
-  margin-bottom: 5px;
-}
+  margin-bottom: 05px;
+ }
+ div.card{
+  border: #5085f8;
+  border-radius: 15px;
+  border-style:inset;
+  background-color: rgba(214, 251, 239, 0.807);
+  padding: 15px;
+ }

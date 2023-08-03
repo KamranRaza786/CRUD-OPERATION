@@ -1,28 +1,34 @@
 import express from "express";
-import { customAlphabet } from 'nanoid'
-const nanoid = customAlphabet('1234567890', 20)
+//import { customAlphabet } from 'nanoid'
+//const nanoid = customAlphabet('1234567890', 20)
 import { MongoClient, ObjectId } from "mongodb"
 import morgan from 'morgan';
 import cors from 'cors'
-
 import './config/index.mjs'
 
-const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@
-${process.env.CLUSTER_NAME}/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
+const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.CLUSTER_NAME}/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
 
 const client = new MongoClient(mongodbURI);
 const database = client.db('teleshop');
 const productsCollection = database.collection('products');
 
+client.connect((err) => {
+    if (err) {
+      console.error("Error connecting to MongoDB:", err);
+      console.log("MongoDB not connected");
+    } else {
+      console.log("Connection to MongoDB successful");
+      console.log("MongoDB connected");
+    }
+  });
 
 const app = express();
 app.use(express.json());
 app.use(cors(["http://localhost:3000", "127.0.0.1", "https://crud-operation-alpha.vercel.app/"]));
-
 app.use(morgan('combined'));
 
 app.get("/", (req, res) => {
-  res.send("hello world!");
+ res.send("hello world!");
 });
 
 
@@ -74,6 +80,8 @@ app.post("/product", async (req, res) => {
 
 
   if (!req?.body?.name
+    || !req?.body?.brand
+    || !req?.body?.model
     || !req?.body?.price
     || !req?.body?.description) {
 
@@ -81,6 +89,8 @@ app.post("/product", async (req, res) => {
       required parameter missing. example JSON request body:
       {
         name: "abc product",
+        brand: "abc",
+        model: "xyz",
         price: "$23.12",
         description: "abc product description"
       }`);
@@ -90,6 +100,8 @@ app.post("/product", async (req, res) => {
   try {
     const doc = {
       name: req?.body?.name,
+      brand:req?.body?.brand,
+      model:req?.body?.model,
       price: req?.body?.price,
       description: req?.body?.description,
     }
@@ -113,6 +125,8 @@ app.put("/product/:id", async (req, res) => {
   if (
     !req.body.name
     && !req.body.price
+    && !req?.body?.brand
+    && !req?.body?.model
     && !req.body.description) {
 
     res.status(403).send(`
@@ -121,9 +135,11 @@ app.put("/product/:id", async (req, res) => {
       example JSON request body:
       {
         name: "abc product",
+        brand: "abc",
+        model: "xyz",
         price: "$23.12",
         description: "abc product description"
-      }`);
+    }`);
     return;
   }
 
@@ -132,6 +148,8 @@ app.put("/product/:id", async (req, res) => {
   // req.body.name && (product.name = req.body.name);
 
   if (req.body.name) product.name = req.body.name;
+  if (req.body.brand) product.brand = req.body.brand;
+  if (req.body.model) product.model = req.body.model;
   if (req.body.price) product.price = req.body.price;
   if (req.body.description) product.description = req.body.description;
 
