@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import cors from 'cors'
 import './config/index.mjs'
 import path from "path";
-const
+const __dirname = path.resolve();
 const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}
 @${process.env.CLUSTER_NAME}/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
 
@@ -15,24 +15,23 @@ const database = client.db('teleshop');
 const productsCollection = database.collection('products');
 
 client.connect((err) => {
-    if (err) {
-      console.error("Error connecting to MongoDB:", err);
-      console.log("MongoDB not connected");
-    } else {
-      console.log("Connection to MongoDB successful");
-      console.log("MongoDB connected");
-    }
-  });
+  if (err) {
+    console.error("Error connecting to MongoDB:", err);
+    console.log("MongoDB not connected");
+  } else {
+    console.log("Connection to MongoDB successful");
+    console.log("MongoDB connected");
+  }
+});
 
 const app = express();
 app.use(express.json());
-app.use(cors(["http://localhost:3000", "127.0.0.1", "https://crud-operation-alpha.vercel.app/"]));
+app.use(cors(["http://localhost:3000", "127.0.0.1", "192.168.1.10"]));
 app.use(morgan('combined'));
 
-app.get("/", (req, res) => {
- res.send("hello world!");
-});
-
+//app.get("/", (req, res) => {
+// res.send("hello world!");
+//});
 
 app.get("/products", async (req, res) => {
 
@@ -73,14 +72,6 @@ app.get("/product/:id", async (req, res) => {
 
 app.post("/product", async (req, res) => {
 
-  // {
-  //   id: 212342, // always a number
-  //   name: "abc product",
-  //   price: "$23.12",
-  //   description: "abc product description"
-  // }
-
-
   if (!req?.body?.name
     || !req?.body?.brand
     || !req?.body?.model
@@ -98,17 +89,17 @@ app.post("/product", async (req, res) => {
       }`);
   }
 
-
   try {
     const doc = {
       name: req?.body?.name,
-      brand:req?.body?.brand,
-      model:req?.body?.model,
+      brand: req?.body?.brand,
+      model: req?.body?.model,
       price: req?.body?.price,
       description: req?.body?.description,
     }
 
     const result = await productsCollection.insertOne(doc);
+    console.log("result: ", result);
     res.status(201).send({ message: "created product" });
 
   } catch (error) {
@@ -146,8 +137,6 @@ app.put("/product/:id", async (req, res) => {
   }
 
   let product = {}
-
-  // req.body.name && (product.name = req.body.name);
 
   if (req.body.name) product.name = req.body.name;
   if (req.body.brand) product.brand = req.body.brand;
@@ -195,10 +184,14 @@ app.delete("/product/:id", async (req, res) => {
   }
 });
 
-app.get(express.static("public"));
-app.use("/") , express.static("public");
-app.use('static', express.static(path.join(__dirname, 'pulic')));
+app.get(express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "public")));
+app.use('/static', express.static(path.join(__dirname, 'static')))
 
+
+app.use((req, res) => {
+  res.status(404).send("not found");
+})
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
