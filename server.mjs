@@ -5,8 +5,10 @@ import { MongoClient, ObjectId } from "mongodb"
 import morgan from 'morgan';
 import cors from 'cors'
 import './config/index.mjs'
-
-const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.CLUSTER_NAME}/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
+import path from "path";
+const
+const mongodbURI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}
+@${process.env.CLUSTER_NAME}/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
 
 const client = new MongoClient(mongodbURI);
 const database = client.db('teleshop');
@@ -193,7 +195,9 @@ app.delete("/product/:id", async (req, res) => {
   }
 });
 
-
+app.get(express.static("public"));
+app.use("/") , express.static("public");
+app.use('static', express.static(path.join(__dirname, 'pulic')));
 
 
 const port = process.env.PORT || 3000;
