@@ -1,14 +1,18 @@
-document.querySelector("#addProductForm")
+document.querySelector("#ProductForm")
 .addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const name = document.querySelector('#name').value;
+    const brand = document.querySelector('#brand').value;
+    const model = document.querySelector('#model').value;
     const price = document.querySelector('#price').value;
     const description = document.querySelector('#description').value;
 
     try {
         const resp = await axios.post(`http://localhost:3000/product`, {
             name: name,
+            brand,
+            model,
             price,
             description
         });
@@ -23,13 +27,13 @@ document.querySelector("#addProductForm")
 
 
 const getAllProducts = async () => {
-try {
-
-    const resp = await axios.get("http://localhost:3000/products");
-    console.log("resp: ", resp.data.data);
-
-    let productsDiv = document.querySelector("#products")
-    productsDiv.innerHTML = "";
+    try {
+    
+        const resp = await axios.get("http://localhost:3000/products");
+        console.log("resp: ", resp.data.data);
+    
+        let productsDiv = document.querySelector("#products")
+        productsDiv.innerHTML = "";
 
     resp.data.data.map(eachProduct => {
         productsDiv.innerHTML += `<div class="card">
@@ -37,7 +41,7 @@ try {
                     <h2>Name: ${eachProduct.name}</h2>
                     <p>brand: ${eachProduct.brand}</p>
                     <p>model: ${eachProduct.model}</p>
-                    <p>Price: ${eachProduct.price} $ Only</p>
+                    <p>Price: ${eachProduct.price}</p>
                     <p>id: ${eachProduct._id}</p>
                     <p>Description: ${eachProduct.description}</p>
                     
