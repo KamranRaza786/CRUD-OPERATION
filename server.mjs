@@ -117,14 +117,14 @@ app.put("/product/:id", async (req, res) => {
 
   if (
     !req.body.name
-    && !req.body.price
     && !req?.body?.brand
     && !req?.body?.model
+    && !req.body.price
     && !req.body.description) {
 
     res.status(403).send(`
       required parameter missing. 
-      atleast one parameter is required: name, price or description to complete update
+      atleast one parameter is required: name, brand, model, price or description to complete update
       example JSON request body:
       {
         name: "abc product",
