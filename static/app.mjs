@@ -80,6 +80,7 @@ window.editProduct = async (product) => {
     box.innerHTML = '';
 
     box.innerHTML = `<form onsubmit="updateProduct(event, '${product._id}')">
+    
         Name: <input required type="text" id="name_${product._id}" value='${product.name}'>
         <br>
         Brand: <input required type="text" id="brand_${product._id}" value='${product.brand}'>
