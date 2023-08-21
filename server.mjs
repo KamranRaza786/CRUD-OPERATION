@@ -19,6 +19,7 @@ client.connect((err) => {
     } else {
       console.log("Connection to MongoDB successful");
       console.log("MongoDB connected");
+      startServer();
     }
   });
 
