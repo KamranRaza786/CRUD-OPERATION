@@ -149,7 +149,10 @@ button:hover {
 }
 
 #products {
+  flex: 1;
   display: grid;
+  flex-wrap: wrap;
+  gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
   padding: 20px;
@@ -186,7 +189,16 @@ form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 600;
+  max-width: 400;
   margin: 0 auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 1, 0.1);
+}
+.container-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+#ProductForm {
+  max-width: 400px;
+  flex: 1;
+  margin-right: 20px; 
 }
