@@ -14,15 +14,28 @@ const client = new MongoClient(mongodbURI);
 const database = client.db('teleshop');
 const productsCollection = database.collection('products');
 
-client.connect((err) => {
-    if (err) {
-      console.error("Error connecting to MongoDB:", err);
-      console.log("MongoDB not connected");
-    } else {
-      console.log("Connection to MongoDB successful");
-      console.log("MongoDB connected");
-    }
-  });
+const connectToMongoDB = async () => {
+  try {
+    await client.connect();
+    console.log("Connection to MongoDB successful");
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+    console.log("MongoDB not connected");
+  }
+};
+
+connectToMongoDB();
+
+//client.connect((err) => {
+//if (err) {
+//  console.error("Error connecting to MongoDB:", err);
+//  console.log("MongoDB not connected");
+// } else {
+//    console.log("Connection to MongoDB successful");
+//   console.log("MongoDB connected");
+// }
+//});
 
 const app = express();
 app.use(express.json());
