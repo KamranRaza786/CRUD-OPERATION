@@ -44,20 +44,20 @@ const getAllProducts = async () => {
         resp.data.data.map(eachProduct => {
             productsDiv.innerHTML += `<div class="card">
                     <h2>Name: ${eachProduct.name}</h2>
-                    <p>Brand: ${eachProduct.brand}</p>
-                    <p>Model: ${eachProduct.model}</p>
-                    <p>Price: ${eachProduct.price}</p>
-                    <p>Id: ${eachProduct._id}</p>
-                    <p>Description: ${eachProduct.description}</p>
+                    <p><strong>Brand:</strong> ${eachProduct.brand}</p>
+                    <p><strong>Model:</strong> ${eachProduct.model}</p>
+                    <p><strong>Price:</strong> ${eachProduct.price} $</p>
+                    <p><strong>Pro.id:</strong> ${eachProduct._id}</p>
+                    <p><strong>Description:</strong> ${eachProduct.description}</p>
                     <br>
                     <button class="icon-button delete-button"type="button"
                     onclick="deleteProduct('${eachProduct._id}') ">
-                    <i class="fas fa-trash"></i> Delete Product
+                    <i class="fas fa-trash"></i> Delete
                     </button>
                    
                     <button class="icon-button edit-button"type="button"
                     onclick='editProduct(${JSON.stringify(eachProduct)})'>
-                    <i class="fas fa-pencil-alt"></i> Edit Product
+                    <i class="fas fa-pencil-alt"></i> Edit
                     </button>
                     
                     <hr>
@@ -93,7 +93,7 @@ window.editProduct = async (product) => {
         value='${product.description}'>
         <br>
             <button class="update-button" type="submit">
-                <i class="fas fa-check"></i> Update Product
+                <i class="fas fa-check"></i> Update
             </button>
             <button class="cancel-button" type="button" onclick="cancelEdit('${product._id}')">
                 <i class="fas fa-times"></i> Cancel

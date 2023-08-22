@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: auto;
   margin: 0 auto;
   padding: 20px;
 }
@@ -185,11 +185,11 @@ form {
   border-radius: 15px;
   border-style: inset;
   background-color: rgba(214, 251, 239, 0.807);
-  padding: 15px;
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 400;
+  max-width: 450;
   margin: 0 auto;
   box-shadow: 0 2px 4px rgba(0, 0, 1, 0.1);
 }
@@ -200,5 +200,24 @@ form {
 #ProductForm {
   max-width: 400px;
   flex: 1;
-  margin-right: 20px; 
+ }
+header {
+  background-color: #076107;
+  padding: 30px;
+  text-align: center;
+  font-size: 15px;
+  color: white;
 }
+nav {
+  float: left;
+  width: auto;
+  height: auto;
+  background: #ccc;
+  padding: 20px;
+}
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
