@@ -25,6 +25,9 @@
     "start": "node server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "21.x.x"
+  },
   "keywords": [],
   "author": "kamranraza",
   "license": "ISC",
