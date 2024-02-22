@@ -2,3 +2,5 @@
 node_modules
 dotenv
 .env
+google-cloud-sdk
+cloud_env.bat
